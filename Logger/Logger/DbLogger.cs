@@ -3,7 +3,7 @@ using System.Data.SqlClient;
 
 namespace Logger
 {
-    public class DbLogger : ILogger
+    public class DbLogger : BaseLogger
     {
         public readonly string ConnectionString;
 
@@ -12,30 +12,15 @@ namespace Logger
             ConnectionString = connectionString;
         }
 
-        public void Error(string message)
+        protected override void Write(LogLevel level, string message)
         {
-            ExecuteCommand(Titles.Error + message);
-        }
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
 
-        public void Error(Exception ex)
-        {
-            ExecuteCommand(Titles.Exception + ex.Message);
-        }
-
-        public void Warning(string message)
-        {
-            ExecuteCommand(Titles.Warning + message);
-        }
-
-        public void Info(string message)
-        {
-            ExecuteCommand(Titles.Info + message);
-        }
-
-        private void ExecuteCommand(string message)
-        {
             using SqlConnection connection = new SqlConnection(ConnectionString);
-            SqlCommand command = new SqlCommand(message, connection);
+            SqlCommand command = new SqlCommand($"{DateTime.Now}: {level.ToString()}" + message, connection);
             command.Connection.Open();
             command.ExecuteNonQuery();
         }

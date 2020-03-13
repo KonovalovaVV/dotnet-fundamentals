@@ -6,24 +6,24 @@ namespace Logger
     {
         static void Main(string[] args)
         {
-            ILogger consoleLogger = new ConsoleLogger();
-            consoleLogger.Error("some error");
-            consoleLogger.Warning("some warning");
-            consoleLogger.Error(new Exception("some exception"));
-            consoleLogger.Info("some info");
+            Logger defaultLogger = new Logger();
+            defaultLogger.logger.Error("some error");
+            defaultLogger.logger.Warning("some warning");
+            defaultLogger.logger.Error(new Exception("some exception"));
+            defaultLogger.logger.Info("some info");
+            
+            Logger dbLogger = new Logger(new DbLogger("Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
+                                                       + "Integrated Security=true;"));
+            dbLogger.logger.Error("some error");
+            dbLogger.logger.Warning("some warning");
+            dbLogger.logger.Error(new Exception("some exception"));
+            dbLogger.logger.Info("some info");
 
-            ILogger fileLogger = new FileLogger("logFile.txt");
-            fileLogger.Error("some error");
-            fileLogger.Warning("some warning");
-            fileLogger.Error(new Exception("some exception"));
-            fileLogger.Info("some info");
-
-            ILogger dbLogger = new DbLogger("Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
-                                            + "Integrated Security=true;");
-            dbLogger.Error("some error");
-            dbLogger.Warning("some warning");
-            dbLogger.Error(new Exception("some exception"));
-            dbLogger.Info("some info");
+            Logger fileLogger = new Logger(new FileLogger("logFile.txt"));
+            fileLogger.logger.Error("some error");
+            fileLogger.logger.Warning("some warning");
+            fileLogger.logger.Error(new Exception("some exception"));
+            fileLogger.logger.Info("some info");
         }
     }
 }

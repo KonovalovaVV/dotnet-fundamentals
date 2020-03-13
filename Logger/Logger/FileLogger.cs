@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace Logger
 {
-    public class FileLogger : ILogger
+    public class FileLogger : BaseLogger
     {
         public readonly string FileName;
 
@@ -12,31 +13,18 @@ namespace Logger
             FileName = fileName;
         }
 
-        public void Error(string message)
+        protected override void Write(LogLevel level, string message)
         {
-            ShowMessage(Titles.Error + message);
-        }
-
-        public void Error(Exception ex)
-        {
-            ShowMessage(Titles.Exception + ex.Message);
-        }
-
-        public void Warning(string message)
-        {
-            ShowMessage(Titles.Warning + message);
-        }
-
-        public void Info(string message)
-        {
-            ShowMessage(Titles.Info + message);
-        }
-
-        private void ShowMessage(string message)
-        {
-            using StreamWriter streamWriter = new StreamWriter(FileName);
-            streamWriter.WriteLine(message);
-            streamWriter.Close();
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
+            
+            byte[] buff = Encoding.Default.GetBytes($"{DateTime.Now}: {level.ToString()}" + message);
+            using FileStream fs = new FileStream(FileName, FileMode.Append, FileAccess.Write);
+            fs.Write(buff, 0, buff.Length);
+            fs.Flush();
+            fs.Close();
         }
     }
 }
