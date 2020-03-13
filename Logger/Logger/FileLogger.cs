@@ -14,29 +14,28 @@ namespace Logger
 
         public void Error(string message)
         {
-            using StreamWriter streamWriter = new StreamWriter(FileName);
-            streamWriter.WriteLine("Error occured: " + message);
-            streamWriter.Close();
+            ShowMessage(Titles.Error + message);
         }
 
         public void Error(Exception ex)
         {
-            using StreamWriter streamWriter = new StreamWriter(FileName);
-            streamWriter.WriteLine("Exception thrown: " + ex.Message);
-            streamWriter.Close();
+            ShowMessage(Titles.Exception + ex.Message);
         }
 
         public void Warning(string message)
         {
-            using StreamWriter streamWriter = new StreamWriter(FileName);
-            streamWriter.WriteLine("Warning: " + message);
-            streamWriter.Close();
+            ShowMessage(Titles.Warning + message);
         }
 
         public void Info(string message)
         {
+            ShowMessage(Titles.Info + message);
+        }
+
+        private void ShowMessage(string message)
+        {
             using StreamWriter streamWriter = new StreamWriter(FileName);
-            streamWriter.WriteLine("Info: " + message);
+            streamWriter.WriteLine(message);
             streamWriter.Close();
         }
     }

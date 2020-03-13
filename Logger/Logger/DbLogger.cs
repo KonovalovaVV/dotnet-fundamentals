@@ -14,32 +14,28 @@ namespace Logger
 
         public void Error(string message)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString);
-            SqlCommand command = new SqlCommand(message, connection);
-            command.Connection.Open();
-            command.ExecuteNonQuery();
+            ExecuteCommand(Titles.Error + message);
         }
 
         public void Error(Exception ex)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString);
-            SqlCommand command = new SqlCommand("Exception thrown " + ex.Message, connection);
-            command.Connection.Open();
-            command.ExecuteNonQuery();
+            ExecuteCommand(Titles.Exception + ex.Message);
         }
 
         public void Warning(string message)
         {
-            using SqlConnection connection = new SqlConnection(ConnectionString);
-            SqlCommand command = new SqlCommand("Warning:  " + message, connection);
-            command.Connection.Open();
-            command.ExecuteNonQuery();
+            ExecuteCommand(Titles.Warning + message);
         }
 
         public void Info(string message)
         {
+            ExecuteCommand(Titles.Info + message);
+        }
+
+        private void ExecuteCommand(string message)
+        {
             using SqlConnection connection = new SqlConnection(ConnectionString);
-            SqlCommand command = new SqlCommand("Info: " + message, connection);
+            SqlCommand command = new SqlCommand(message, connection);
             command.Connection.Open();
             command.ExecuteNonQuery();
         }
