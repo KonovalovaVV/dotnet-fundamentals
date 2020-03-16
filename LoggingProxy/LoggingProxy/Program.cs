@@ -1,5 +1,4 @@
-﻿using System;
-using LoggingProxy.Logger;
+﻿using LoggingProxy.Logger;
 
 namespace LoggingProxy
 {
@@ -7,12 +6,8 @@ namespace LoggingProxy
     {
         static void Main(string[] args)
         {
-            dynamic person = new LoggingProxy<ILogger>();
-            person.Name = "Ivan";
-            person.Age = 43;
-            Func<int, int> Incr = delegate (int x) { person.Age += x; return person.Age; };
-            person.IncrementAge = Incr;
-            person.IncrementAge(6);
+            dynamic logger = new LoggingProxy<ILogger>(new ConsoleLogger());
+            logger.Error("fake error");
         }
     }
 }

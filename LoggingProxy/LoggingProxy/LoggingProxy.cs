@@ -8,9 +8,10 @@ namespace LoggingProxy
     public class LoggingProxy<T> : DynamicObject
     {
         public readonly Dictionary<string, object> Members = new Dictionary<string, object>();
-
-        public LoggingProxy()
+        public readonly T Instance;
+        public LoggingProxy(T instance)
         {
+            Instance = instance;
             MemberInfo[] members = typeof(T).GetMembers();
             foreach(var member in members)
             {
@@ -40,10 +41,7 @@ namespace LoggingProxy
         {
             SimpleLogger logger = new SimpleLogger();
             logger.Logger.Warning(binder.Name);
-            
-            dynamic method = Members[binder.Name];
-            
-            result = method((int)args[0]);
+            result = typeof(T).InvokeMember(binder.Name, BindingFlags.InvokeMethod, null, Instance, args);
             return true;
         } 
     }
