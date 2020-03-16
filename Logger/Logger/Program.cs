@@ -6,24 +6,24 @@ namespace Logger
     {
         static void Main(string[] args)
         {
-            Logger defaultLogger = new Logger();
-            defaultLogger.logger.Error("some error");
-            defaultLogger.logger.Warning("some warning");
-            defaultLogger.logger.Error(new Exception("some exception"));
-            defaultLogger.logger.Info("some info");
+            SimpleLogger defaultLogger = new SimpleLogger();
+            defaultLogger.Logger.Error("some error");
+            defaultLogger.Logger.Warning("some warning");
+            defaultLogger.Logger.Error(new Exception("some exception"));
+            defaultLogger.Logger.Info("some info");
             
-            Logger dbLogger = new Logger(new DbLogger("Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
+            SimpleLogger dbLogger = new SimpleLogger(new DbLogger("Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
                                                        + "Integrated Security=true;"));
-            dbLogger.logger.Error("some error");
-            dbLogger.logger.Warning("some warning");
-            dbLogger.logger.Error(new Exception("some exception"));
-            dbLogger.logger.Info("some info");
+            dbLogger.Logger.Error("some error");
+            dbLogger.Logger.Warning("some warning");
+            dbLogger.Logger.Error(new Exception("some exception"));
+            dbLogger.Logger.Info("some info");
 
-            Logger fileLogger = new Logger(new FileLogger("logFile.txt"));
-            fileLogger.logger.Error("some error");
-            fileLogger.logger.Warning("some warning");
-            fileLogger.logger.Error(new Exception("some exception"));
-            fileLogger.logger.Info("some info");
+            SimpleLogger fileLogger = new SimpleLogger(new FileLogger("logFile.txt"));
+            fileLogger.Logger.Error("some error");
+            fileLogger.Logger.Warning("some warning");
+            fileLogger.Logger.Error(new Exception("some exception"));
+            fileLogger.Logger.Info("some info");
         }
     }
 }
