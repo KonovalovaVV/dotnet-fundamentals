@@ -2,7 +2,7 @@
 {
     public class Logger
     {
-        public ILogger logger { get; set; }
+        public ILogger Logger { get; set; }
 
         public Logger()
         {
