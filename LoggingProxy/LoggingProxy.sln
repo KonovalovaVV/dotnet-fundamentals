@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingProxy", "LoggingProxy\LoggingProxy.csproj", "{6F8BE5D2-BFAE-480F-AD2C-D054E0BD0A71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F8BE5D2-BFAE-480F-AD2C-D054E0BD0A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8BE5D2-BFAE-480F-AD2C-D054E0BD0A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8BE5D2-BFAE-480F-AD2C-D054E0BD0A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8BE5D2-BFAE-480F-AD2C-D054E0BD0A71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E085A5B-CA91-47E0-94B4-18076AD0D98F}
+	EndGlobalSection
+EndGlobal
