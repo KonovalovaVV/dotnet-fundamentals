@@ -1,4 +1,5 @@
-﻿using LoggingProxy.Logger;
+﻿using System;
+using Logger;
 
 namespace LoggingProxy
 {
@@ -6,8 +7,17 @@ namespace LoggingProxy
     {
         static void Main(string[] args)
         {
-            dynamic logger = new LoggingProxy<ILogger>(new ConsoleLogger());
-            logger.Error("fake error");
+            dynamic consoleLogger = LoggingProxy<ILogger>.CreateInstance(new ConsoleLogger());
+            consoleLogger.Error("fake error");
+            consoleLogger.Warning("fake warning");
+            consoleLogger.Error(new Exception("fake exception"));
+            consoleLogger.Info("some info");
+
+            dynamic fileLogger = LoggingProxy<ILogger>.CreateInstance(new FileLogger("output.txt"));
+            fileLogger.Error("fake error");
+            fileLogger.Warning("fake warning");
+            fileLogger.Error(new Exception("fake exception"));
+            fileLogger.Info("some info");
         }
     }
 }
