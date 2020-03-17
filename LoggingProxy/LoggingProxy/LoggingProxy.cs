@@ -11,7 +11,7 @@ namespace LoggingProxy
     {
         public readonly Dictionary<string, object> Members = new Dictionary<string, object>();
         private static T _processedObject;
-
+        private ILogger logger;
         public static T CreateInstance(T processedObject)
         {
              return new LoggingProxy<T>(processedObject).ActLike(typeof(T));
@@ -19,6 +19,7 @@ namespace LoggingProxy
 
         private LoggingProxy(T processedObject)
         {
+            logger = new SimpleLogger();
             _processedObject = processedObject;
             MemberInfo[] members = typeof(T).GetMembers();
             foreach(var member in members)
@@ -30,7 +31,7 @@ namespace LoggingProxy
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            new SimpleLogger().Warning(binder.Name);
+            logger.Info(binder.Name);
             try
             {
                 Members[binder.Name] = value;
@@ -47,7 +48,7 @@ namespace LoggingProxy
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            new SimpleLogger().Warning(binder.Name);
+            logger.Info(binder.Name);
             result = null;
             try
             {
@@ -68,7 +69,7 @@ namespace LoggingProxy
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
-            new SimpleLogger().Warning(binder.Name);
+            logger.Info(binder.Name);
             try
             {
                 result = typeof(T).InvokeMember(binder.Name, BindingFlags.InvokeMethod, null, _processedObject, args);
