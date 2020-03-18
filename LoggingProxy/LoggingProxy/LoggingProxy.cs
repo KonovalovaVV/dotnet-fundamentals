@@ -12,6 +12,7 @@ namespace LoggingProxy
         private readonly Dictionary<string, object> _members = new Dictionary<string, object>();
         private readonly T _processedObject;
         private readonly ILogger _logger;
+
         public static T CreateInstance(T processedObject)
         {
              return new LoggingProxy<T>(processedObject).ActLike(typeof(T));
