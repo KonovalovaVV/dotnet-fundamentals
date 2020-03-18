@@ -6,14 +6,13 @@ namespace CsvEnumerable
 {
     public class CsvEnumerable : IEnumerable
     {
-        private CsvReader _csv;
+        private readonly CsvReader _csv;
 
         public CsvEnumerable(string fileName)
         {
-            TextReader fileReader = File.OpenText(fileName);
-            _csv = new CsvReader(fileReader);
-            _csv.Configuration.HasHeaderRecord = false;
-            
+            CsvHelper.Configuration.Configuration configuration = new CsvHelper.Configuration.Configuration();
+            configuration.HasHeaderRecord = false;
+            _csv = new CsvReader(File.OpenText(fileName), configuration); 
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -21,9 +20,9 @@ namespace CsvEnumerable
             return (IEnumerator)GetEnumerator();
         }
 
-        public CsvEnum GetEnumerator()
+        public CsvEnumerator GetEnumerator()
         {
-            return new CsvEnum(_csv);
+            return new CsvEnumerator(_csv);
         }
     }
 }
