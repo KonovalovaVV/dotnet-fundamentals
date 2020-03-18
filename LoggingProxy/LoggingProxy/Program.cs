@@ -1,6 +1,4 @@
-﻿using System;
-using Logger;
-using LoggingProxy.Test;
+﻿using LoggingProxy.Test;
 
 namespace LoggingProxy
 {
@@ -8,7 +6,7 @@ namespace LoggingProxy
     {
         static void Main(string[] args)
         {
-            dynamic person = LoggingProxy<IPerson>.CreateInstance(new Person());
+            IPerson person = LoggingProxy<IPerson>.CreateInstance(new Person());
             person.FirstName = "Pavel";
             person.SecondName = "Ivanov";
             person.SetAge(30);
