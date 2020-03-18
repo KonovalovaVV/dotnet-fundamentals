@@ -1,27 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using CsvHelper;
+using System.Collections;
+using System.IO;
 
 namespace CsvEnumerable
 {
-    public class CsvEnumerable : IEnumerable<string>
+    public class CsvEnumerable : IEnumerable
     {
-        private readonly string _filePath;
-        private readonly List<string> _csvStrings;
+        private CsvReader _csv;
 
-        public CsvEnumerable(string filePath)
+        public CsvEnumerable(string fileName)
         {
-            _filePath = filePath;
-            _csvStrings = CsvGetter.ReadInCSV(_filePath);
-        }
-
-        public IEnumerator<string> GetEnumerator()
-        {
-            return _csvStrings.GetEnumerator();
+            TextReader fileReader = File.OpenText(fileName);
+            _csv = new CsvReader(fileReader);
+            _csv.Configuration.HasHeaderRecord = false;
+            
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return (IEnumerator)GetEnumerator();
+        }
+
+        public CsvEnum GetEnumerator()
+        {
+            return new CsvEnum(_csv);
         }
     }
 }

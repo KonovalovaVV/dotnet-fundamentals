@@ -4,13 +4,11 @@ namespace CsvEnumerable
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            CsvEnumerable csvEnumerable = new CsvEnumerable("addresses.csv");
-            foreach(var record in csvEnumerable)
-            {
-                Console.WriteLine(record + '*');
-            }
+            CsvEnumerable csvList = new CsvEnumerable("addresses.csv");
+            foreach (string p in csvList)
+                Console.WriteLine(p);
         }
     }
 }
