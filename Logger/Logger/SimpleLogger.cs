@@ -1,17 +1,39 @@
-﻿namespace Logger
+﻿using System;
+
+namespace Logger
 {
-    public class SimpleLogger
+    public class SimpleLogger: ILogger
     {
-        public ILogger Logger { get; set; }
+        private readonly ILogger _logger;
 
         public SimpleLogger()
         {
-            Logger = new ConsoleLogger();
+            _logger = new ConsoleLogger();
         }
         
-        public SimpleLogger(ILogger _logger)
+        public SimpleLogger(ILogger logger)
         {
-            Logger = _logger;
+            _logger = logger;
+        }
+
+        public void Error(string message)
+        {
+            _logger.Error(message);
+        }
+
+        public void Error(Exception ex)
+        {
+            _logger.Error(ex);
+        }
+
+        public void Warning(string message)
+        {
+            _logger.Warning(message);
+        }
+
+        public void Info(string message)
+        {
+            _logger.Info(message);
         }
     }
 }
