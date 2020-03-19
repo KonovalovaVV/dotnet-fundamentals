@@ -9,20 +9,19 @@ namespace CsvEnumerable
     public class CsvEnumerator : IEnumerator
     {
         private List<string> _records = new List<string>();
-        private CsvReader _csv;
+        private CsvReader csvReader;
         private int currentPosition = -1;
 
         public CsvEnumerator(CsvReader csv)
         {
-            _csv = csv;
+            csvReader = csv;
         }
 
         public bool MoveNext()
         {
-            string nextLine;
-            if (_csv.Read())
+            if (csvReader.Read())
             {
-                if (!TryNextLine(out nextLine))
+                if (!TryGetNextLine(out string nextLine))
                     return false;
                 _records.Add(nextLine);
                 currentPosition++;
@@ -31,24 +30,26 @@ namespace CsvEnumerable
             return false;
         }
 
-        private bool TryNextLine(out string nextLine)
+        private bool TryGetNextLine(out string nextLine)
         {
-            string value;
             StringBuilder result = new StringBuilder();
             int i = 0;
-            while (_csv.TryGetField(i++, out value))
+
+            while (csvReader.TryGetField(i++, out string value))
             {
                 result.Append(value);
             }
+
             nextLine = result.ToString();
-            if (string.IsNullOrEmpty(nextLine))
-                return false;
-            return true;
+
+            return !string.IsNullOrEmpty(nextLine);
         }
 
         public void Reset()
         {
-
+            currentPosition = -1;
+            _records.Clear();
+            csvReader.Dispose();
         }
 
         object IEnumerator.Current
