@@ -1,4 +1,5 @@
 ﻿using System;
+using CsvEnumerable.DataBase;
 
 namespace CsvEnumerable
 {
@@ -6,10 +7,20 @@ namespace CsvEnumerable
     {
         static void Main()
         {
-            CsvEnumerable csvList = new CsvEnumerable("addresses.csv");
-            Console.WriteLine("----First foreach----");
-            foreach (string p in csvList)
-                Console.WriteLine(p);
+            CsvEnumerable<string> csvList = new CsvEnumerable<string>("addresses.csv");
+            try
+            {
+                DbConnection dataBase = DbConnection.GetInstance();
+                DbCommandExecutor commandExecutor = new DbCommandExecutor(dataBase);
+                foreach (string p in csvList)
+                {
+                    commandExecutor.ExecuteCommandAsync("INSERT INTO Addresses (Address) VALUES ('" + p + "');");
+                }
+            }
+            catch (Exception ex)
+            {
+                 Console.Write(ex);
+            }
             Console.WriteLine("----Second foreach----");
             foreach (string p in csvList)
                 Console.WriteLine(p);
