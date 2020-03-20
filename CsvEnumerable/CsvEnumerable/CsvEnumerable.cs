@@ -5,7 +5,7 @@ using System.IO;
 
 namespace CsvEnumerable
 {
-    public class CsvEnumerable : IEnumerable
+    public class CsvEnumerable<T> : IEnumerable 
     {
         private readonly string fileName;
         private readonly Configuration _csvConfiguration = new Configuration
@@ -23,10 +23,10 @@ namespace CsvEnumerable
             return GetEnumerator();
         }
 
-        public CsvEnumerator GetEnumerator()
+        public CsvEnumerator<T> GetEnumerator()
         {
             CsvReader _csv = new CsvReader(File.OpenText(fileName), _csvConfiguration);
-            return new CsvEnumerator(_csv);
+            return new CsvEnumerator<T>(_csv);
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace CsvEnumerable
 {
-    public class CsvEnumerator : IEnumerator
+    public class CsvEnumerator<T> : IEnumerator 
     {
-        private List<string> _records = new List<string>();
+        private List<T> _records = new List<T>();
         private CsvReader csvReader;
         private int currentPosition = -1;
 
@@ -21,7 +21,7 @@ namespace CsvEnumerable
         {
             if (csvReader.Read())
             {
-                if (!TryGetNextLine(out string nextLine))
+                if (!TryGetNextLine(out T nextLine))
                     return false;
                 _records.Add(nextLine);
                 currentPosition++;
@@ -30,7 +30,7 @@ namespace CsvEnumerable
             return false;
         }
 
-        private bool TryGetNextLine(out string nextLine)
+        private bool TryGetNextLine(out T nextLine)
         {
             StringBuilder result = new StringBuilder();
             int i = 0;
@@ -39,10 +39,8 @@ namespace CsvEnumerable
             {
                 result.Append(value);
             }
-
-            nextLine = result.ToString();
-
-            return !string.IsNullOrEmpty(nextLine);
+            nextLine = csvReader.GetRecord<T>();
+            return !string.IsNullOrEmpty(result.ToString());
         }
 
         public void Reset()
@@ -60,7 +58,7 @@ namespace CsvEnumerable
             }
         }
 
-        public string Current
+        public T Current
         {
             get
             {
