@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CsvEnumerable">
+      <HintPath>..\..\CsvEnumerable\CsvEnumerable\bin\Debug\netcoreapp3.1\CsvEnumerable.dll</HintPath>
+    </Reference>
+    <Reference Include="Logger">
+      <HintPath>..\..\LoggingProxy\LoggingProxy\bin\Debug\netcoreapp3.0\Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="LoggingProxy">
+      <HintPath>..\..\LoggingProxy\LoggingProxy\bin\Debug\netcoreapp3.0\LoggingProxy.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

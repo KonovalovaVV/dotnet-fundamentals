@@ -2,12 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 
 namespace CsvEnumerable
 {
-    public class CsvEnumerator<T> : IEnumerator
+    public class CsvEnumerator<T> : IEnumerator 
     {
         private List<T> _records = new List<T>();
         private CsvReader csvReader;
@@ -40,10 +39,7 @@ namespace CsvEnumerable
             {
                 result.Append(value);
             }
-
-            var foo = TypeDescriptor.GetConverter(typeof(T));
-            nextLine =  (T)(foo.ConvertFromInvariantString(result.ToString()));
-
+            nextLine = csvReader.GetRecord<T>();
             return !string.IsNullOrEmpty(result.ToString());
         }
 

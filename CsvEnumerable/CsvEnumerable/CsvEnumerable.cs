@@ -5,14 +5,13 @@ using System.IO;
 
 namespace CsvEnumerable
 {
-    public class CsvEnumerable<T> : IEnumerable
+    public class CsvEnumerable<T> : IEnumerable 
     {
         private readonly string fileName;
         private readonly Configuration _csvConfiguration = new Configuration
         {
             HasHeaderRecord = false
         };
-        private object level;
 
         public CsvEnumerable(string fileName)
         {
