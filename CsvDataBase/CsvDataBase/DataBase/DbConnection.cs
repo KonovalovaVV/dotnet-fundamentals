@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using CsvDataBase.AppSettings;
 
 namespace CsvDataBase.DataBase
 {
@@ -9,12 +10,9 @@ namespace CsvDataBase.DataBase
             new Lazy<DbConnection>(() => new DbConnection());
         public readonly SqlConnection Connection;
 
-        private const string _connectionString = "Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
-                                                      + "Integrated Security=true;";
-
         private DbConnection()
         {
-            Connection = new SqlConnection(_connectionString);
+            Connection = new SqlConnection(AppSettingsProvider.GetInstance().Settings.ConnectionString);
             TryConnectAsync();
         }
 
