@@ -43,5 +43,5 @@ namespace CsvEnumberable.Test
         {
             return "First name: " + FirstName + " Second name: " + SecondName + " Age: " + Age;
         }
-}
+    }
 }

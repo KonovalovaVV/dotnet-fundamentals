@@ -8,23 +8,23 @@ namespace CsvEnumerable
 {
     public class CsvEnumerator<T> : IEnumerator 
     {
-        private List<T> _records = new List<T>();
-        private CsvReader csvReader;
-        private int currentPosition = -1;
+        private readonly List<T> _records = new List<T>();
+        private readonly CsvReader _csvReader;
+        private int _currentPosition = -1;
 
         public CsvEnumerator(CsvReader csv)
         {
-            csvReader = csv;
+            _csvReader = csv;
         }
 
         public bool MoveNext()
         {
-            if (csvReader.Read())
+            if (_csvReader.Read())
             {
                 if (!TryGetNextLine(out T nextLine))
                     return false;
                 _records.Add(nextLine);
-                currentPosition++;
+                _currentPosition++;
                 return true;
             }
             return false;
@@ -35,19 +35,19 @@ namespace CsvEnumerable
             StringBuilder result = new StringBuilder();
             int i = 0;
 
-            while (csvReader.TryGetField(i++, out string value))
+            while (_csvReader.TryGetField(i++, out string value))
             {
                 result.Append(value);
             }
-            nextLine = csvReader.GetRecord<T>();
+            nextLine = _csvReader.GetRecord<T>();
             return !string.IsNullOrEmpty(result.ToString());
         }
 
         public void Reset()
         {
-            currentPosition = -1;
+            _currentPosition = -1;
             _records.Clear();
-            csvReader.Dispose();
+            _csvReader.Dispose();
         }
 
         object IEnumerator.Current
@@ -64,7 +64,7 @@ namespace CsvEnumerable
             {
                 try
                 {
-                    return _records[currentPosition];
+                    return _records[_currentPosition];
                 }
                 catch (IndexOutOfRangeException)
                 {

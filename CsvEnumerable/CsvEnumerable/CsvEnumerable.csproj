@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="bbv.Common.Data" Version="7.1.12149.1635" />
     <PackageReference Include="HBD.Services.Csv" Version="1.0.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
 
 </Project>

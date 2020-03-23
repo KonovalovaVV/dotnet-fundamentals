@@ -20,8 +20,8 @@ namespace CsvDataBase.AppSettings
         private AppSettings GetSettings()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(FileName, optional: false, reloadOnChange: true);
+           .SetBasePath(Directory.GetCurrentDirectory())
+           .AddJsonFile(FileName, optional: false, reloadOnChange: true);
             IConfigurationRoot configuration = builder.Build();
             return configuration.GetSection(SectionName).Get<AppSettings>();
         }
