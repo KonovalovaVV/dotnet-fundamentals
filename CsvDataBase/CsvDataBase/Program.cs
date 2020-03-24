@@ -1,5 +1,4 @@
 ﻿using CsvDataBase.AppSettings;
-using CsvDataBase.DataBase;
 using CsvEnumberable.Test;
 using CsvDataBase.Repository;
 using CsvEnumerable;
@@ -17,12 +16,10 @@ namespace CsvDataBase
                 = new CsvEnumerable<Person>(AppSettingsProvider.GetInstance().Settings.CsvFileName);
             try
             {
-                DbConnection dataBase = DbConnection.GetInstance();
-                DbCommandExecutor commandExecutor = new DbCommandExecutor(dataBase);
                 foreach (Person p in csvList)
                 {
                     repository.Add(p);
-                }   
+                }
             }
             catch (Exception ex)
             {

@@ -11,12 +11,12 @@ namespace CsvDataBase.DataBase
             _dbConnection = db;
         }
 
-        public async void ExecuteCommandAsync(string queryString)
+        public void ExecuteCommand(string queryString)
         {
             try
             {
                 SqlCommand command = new SqlCommand(queryString, _dbConnection.Connection);
-                await command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {

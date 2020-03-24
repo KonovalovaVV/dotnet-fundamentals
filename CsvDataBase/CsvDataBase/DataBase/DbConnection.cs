@@ -13,14 +13,17 @@ namespace CsvDataBase.DataBase
         private DbConnection()
         {
             Connection = new SqlConnection(AppSettingsProvider.GetInstance().Settings.ConnectionString);
-            TryConnectAsync();
+            TryConnect();
         }
 
-        private async void TryConnectAsync()
+        private void TryConnect()
         {
             try
             {
-                await Connection.OpenAsync();
+                if (Connection.State != System.Data.ConnectionState.Connecting)
+                {
+                    Connection.OpenAsync();
+                }
             }
             catch (SqlException ex)
             {
