@@ -1,4 +1,5 @@
 ﻿using System;
+using CsvEnumerable.Test;
 
 namespace CsvEnumerable
 {
@@ -6,13 +7,9 @@ namespace CsvEnumerable
     {
         static void Main()
         {
-            CsvEnumerable csvList = new CsvEnumerable("addresses.csv");
-            Console.WriteLine("----First foreach----");
-            foreach (string p in csvList)
-                Console.WriteLine(p);
-            Console.WriteLine("----Second foreach----");
-            foreach (string p in csvList)
-                Console.WriteLine(p);
+            CsvEnumerable<Person> csvList = new CsvEnumerable<Person>("persons.csv");
+            foreach (Person p in csvList)
+                Console.WriteLine(p.ToString());
         }
     }
 }
