@@ -20,10 +20,7 @@ namespace CsvDataBase.DataBase
         {
             try
             {
-                if (Connection.State != System.Data.ConnectionState.Connecting)
-                {
-                    Connection.OpenAsync();
-                }
+                Connection.Open();
             }
             catch (SqlException ex)
             {

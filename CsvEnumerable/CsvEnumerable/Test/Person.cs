@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CsvEnumberable.Test
+namespace CsvEnumerable.Test
 {
     public class Person: IPerson
     {

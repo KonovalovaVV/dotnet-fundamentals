@@ -1,4 +1,4 @@
-﻿namespace CsvEnumberable.Test
+﻿namespace CsvEnumerable.Test
 {
     public interface IPerson
     {

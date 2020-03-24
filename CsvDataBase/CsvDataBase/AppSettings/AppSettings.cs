@@ -4,7 +4,6 @@
     {
         public string ConnectionString { get; set; }
         public string CsvFileName { get; set; }
-
     }
 }
 

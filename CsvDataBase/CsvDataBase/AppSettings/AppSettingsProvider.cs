@@ -22,8 +22,11 @@ namespace CsvDataBase.AppSettings
             IConfigurationBuilder builder = new ConfigurationBuilder()
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile(FileName, optional: false, reloadOnChange: true);
+           
             IConfigurationRoot configuration = builder.Build();
-            return configuration.GetSection(SectionName).Get<AppSettings>();
+            AppSettings appSettings = configuration.GetSection(SectionName).Get<AppSettings>();
+            appSettings.ConnectionString = appSettings.ConnectionString.Replace("DataDirectory\\", AppDomain.CurrentDomain.BaseDirectory);
+            return appSettings;
         }
 
         public static AppSettingsProvider GetInstance()
