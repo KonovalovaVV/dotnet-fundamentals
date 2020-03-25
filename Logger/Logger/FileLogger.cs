@@ -20,7 +20,7 @@ namespace Logger
                 return;
             }
             
-            byte[] buff = Encoding.Default.GetBytes($"{DateTime.Now}: {level.ToString()}" + message);
+            byte[] buff = Encoding.Default.GetBytes($"{DateTime.Now}: {level}" + message);
             using FileStream fs = new FileStream(FileName, FileMode.Append, FileAccess.Write);
             fs.Write(buff, 0, buff.Length);
             fs.Flush();

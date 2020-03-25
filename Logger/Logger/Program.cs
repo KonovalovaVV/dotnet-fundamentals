@@ -12,8 +12,7 @@ namespace Logger
             defaultLogger.Error(new Exception("some exception"));
             defaultLogger.Info("some info");
             
-            SimpleLogger dbLogger = new SimpleLogger(new DbLogger("Data Source=MSSQL1;Initial Catalog=AdventureWorks;"
-                                                       + "Integrated Security=true;"));
+            SimpleLogger dbLogger = new SimpleLogger(new DbLogger());
             dbLogger.Error("some error");
             dbLogger.Warning("some warning");
             dbLogger.Error(new Exception("some exception"));
